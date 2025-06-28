@@ -1,0 +1,34 @@
+name: Rollout update
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment"
+        required: true
+        default: "development"
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+
+jobs:
+  docker_publish:
+    name: Rollout update for ${{ github.event.inputs.environment }}
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Connect via SSH and deploy to ${{ github.event.inputs.environment }}
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          debug: true
+          script: |
+            cd infrastructure/
+            sh ./run.sh ${{ github.event.inputs.environment }} start
