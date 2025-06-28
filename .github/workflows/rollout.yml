@@ -17,11 +17,14 @@ jobs:
   docker_publish:
     name: Rollout update for ${{ github.event.inputs.environment }}
     runs-on: ubuntu-22.04
+    environment: ${{ github.event.inputs.environment }}
     permissions:
       contents: read
       packages: write
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Connect via SSH and deploy to ${{ github.event.inputs.environment }}
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -30,5 +33,5 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           debug: true
           script: |
-            cd infrastructure/
+            cd infra/
             sh ./run.sh ${{ github.event.inputs.environment }} start
