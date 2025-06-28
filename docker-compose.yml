@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: ghcr.io/squid-game-bma/backend:latest
+    image: ghcr.io/calmar-game/backend:latest
     container_name: game_app
     restart: always
     env_file:
@@ -22,20 +22,20 @@ services:
       - postgres
       - redis
     networks:
-      - game_network
+      - calmar_network
 
   frontend:
-    image: ghcr.io/squid-game-bma/frontend:latest
-    container_name: game_frontend
+    image: ghcr.io/calmar-game/frontend:latest
+    container_name: calmar_game_frontend
     restart: always
     expose:
       - "80"
     networks:
-      - game_network
+      - calmar_network
 
   postgres:
     image: postgres:14
-    container_name: game_postgres
+    container_name: calmar_game_postgres
     restart: always
     env_file:
       - ${PWD}/environment/${ENV_NAME}/.env.${ENV_NAME}.dist
@@ -48,11 +48,11 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - game_network
+      - calmar_network
 
   redis:
     image: redis:6-alpine
-    container_name: game_redis
+    container_name: calmar_game_redis
     restart: always
     env_file:
       - ${PWD}/environment/${ENV_NAME}/.env.${ENV_NAME}.dist
@@ -61,11 +61,11 @@ services:
     volumes:
       - redisdata:/data
     networks:
-      - game_network
+      - calmar_network
 
   caddy:
     image: caddy:2
-    container_name: game_caddy
+    container_name: calmar_game_caddy
     restart: always
     ports:
       - "80:80"
@@ -75,7 +75,7 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     networks:
-      - game_network
+      - calmar_network
 
 volumes:
   pgdata:
@@ -84,4 +84,4 @@ volumes:
   caddy_config:
 
 networks:
-  game_network:
+  calmar_network:
