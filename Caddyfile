@@ -4,7 +4,8 @@ backendforgames.com {
     reverse_proxy app:8000
   }
 
-  handle /* {
+  handle {
+    try_files {path} /index.html
     reverse_proxy frontend:80
   }
 }
