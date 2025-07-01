@@ -1,5 +1,14 @@
 backendforgames.com {
 
+  @runner_exact {
+    path /runner
+  }
+
+  handle @runner_exact {
+    uri strip_prefix /runner
+    reverse_proxy game_runner:80
+  }
+
   # — redirect bare `/database/adminer` to the trailing-slash version —
   @adminer_no_slash {
     path /database/adminer

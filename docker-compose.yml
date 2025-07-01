@@ -58,6 +58,15 @@ services:
     networks:
       - calmar_network
 
+  game_runner:
+    image: ghcr.io/calmar-game/game_runner:latest
+    container_name: game_runner
+    restart: always
+    expose:
+      - "80"
+    networks:
+      - calmar_network
+
   caddy:
     image: caddy:2
     container_name: calmar_game_caddy
