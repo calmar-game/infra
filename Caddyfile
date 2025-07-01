@@ -1,11 +1,15 @@
 backendforgames.com {
 
-  @runner_exact {
+  # redirect exact `/runner` → `/runner/`
+  @runner_no_slash {
     path /runner
   }
+  handle @runner_no_slash {
+    redir /runner/ 308
+  }
 
-  handle @runner_exact {
-    uri strip_prefix /runner
+  # proxy everything under /runner/ into your Unity container
+  handle_path /runner/* {
     reverse_proxy game_runner:80
   }
 
