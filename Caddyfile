@@ -1,12 +1,12 @@
 backendforgames.com {
 
-  handle_path /database/adminer {
-    redir /database/adminer/ permanent
-  }
+  
+  @adminer-raw path /database/adminer
+  @adminer-path path /database/adminer/*
 
-  handle_path /database/adminer/* {
-    uri strip_prefix /database/adminer
-    reverse_proxy adminer:8080
+  route {
+    redir @adminer-raw /database/adminer/ permanent
+    reverse_proxy @adminer-path adminer:8080
   }
 
   handle /api/* {
