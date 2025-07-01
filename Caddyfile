@@ -3,9 +3,10 @@ backendforgames.com {
   
   @adminer-raw path /database/adminer
   @adminer-path path /database/adminer/*
-
+  
   route {
     redir @adminer-raw /database/adminer/ permanent
+    uri strip_prefix /database/adminer
     reverse_proxy @adminer-path adminer:8080
   }
 
