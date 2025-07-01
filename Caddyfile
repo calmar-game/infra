@@ -1,11 +1,28 @@
 backendforgames.com {
+  # Глобальные CORS заголовки для всех маршрутов
+  header {
+    Access-Control-Allow-Origin *
+    Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+    Access-Control-Max-Age "3600"
+    Access-Control-Allow-Credentials true
+  }
 
   handle /api/* {
     reverse_proxy app:8000
   }
 
-  handle {
+  handle /runner/* {
+    root * /var/www/backendforgames.ru
     try_files {path} /index.html
-    reverse_proxy frontend:80
+    file_server
+  }
+
+  handle {
+    root * /srv
+    try_files {path} /index.html
+    reverse_proxy frontend:80 {
+      header_up X-Real-IP {remote_host}
+    }
   }
 }
