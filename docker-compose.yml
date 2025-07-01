@@ -50,16 +50,16 @@ services:
     networks:
       - calmar_network
 
-  redis:
-    image: redis:6-alpine
-    container_name: calmar_game_redis
+  pgweb:
+    image: sosedoff/pgweb:latest
+    container_name: pgweb
     restart: always
-    env_file:
-      - ${PWD}/environment/${ENV_NAME}/.env.${ENV_NAME}.dist
     ports:
-      - "6379:6379"
-    volumes:
-      - redisdata:/data
+      - "${PGWEB_PORT}:8081"
+    environment:
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?sslmode=disable
+    depends_on:
+      - postgres
     networks:
       - calmar_network
 
