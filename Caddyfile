@@ -1,8 +1,8 @@
 backendforgames.com {
 
-  handle_path /database/admin/* {
-    uri strip_prefix /database/admin
-    reverse_proxy pgweb:8081
+  handle_path /database/adminer/* {
+    uri strip_prefix /database/adminer
+    reverse_proxy adminer:8080
   }
 
   handle /api/* {
