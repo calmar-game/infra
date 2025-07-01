@@ -16,7 +16,7 @@ environment/*/.env.*
 .Trashes
 ehthumbs.db
 Thumbs.db
-
+ 
 # IDE
 .vscode/
 .idea/
