@@ -75,6 +75,9 @@ services:
 
 volumes:
   pgdata:
+    driver: local
+    name: "${ENV_NAME}_pgdata"
+
   caddy_data:
   caddy_config:
 
