@@ -5,6 +5,7 @@ backendforgames.com {
   }
 
   handle_path /database/admin/* {
+    uri strip_prefix /database/admin
     reverse_proxy pgweb:8081
   }
 
