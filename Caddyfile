@@ -1,6 +1,5 @@
 backendforgames.com {
 
-  # redirect exact `/runner` → `/runner/`
   @runner_no_slash {
     path /runner
   }
@@ -8,10 +7,10 @@ backendforgames.com {
     redir /runner/ 308
   }
 
-  # proxy everything under /runner/ into your Unity container
-  handle_path /runner/* {
+  handle_path /runner* {
     reverse_proxy game_runner:80
   }
+
 
   # — redirect bare `/database/adminer` to the trailing-slash version —
   @adminer_no_slash {
