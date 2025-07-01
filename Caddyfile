@@ -1,16 +1,18 @@
 backendforgames.com {
 
-  @runner_no_slash {
-    path /runner
+  @runner_exact {
+    path   /runner
   }
-  handle @runner_no_slash {
-    redir /runner/ 308
+  redir @runner_exact /runner/ 308
+
+  @runner_prefix {
+    path_prefix  /runner/
   }
 
-  handle_path /runner/* {
+  handle @runner_prefix {
+    uri strip_prefix /runner
     reverse_proxy game_runner:80
   }
-
 
   # — redirect bare `/database/adminer` to the trailing-slash version —
   @adminer_no_slash {
