@@ -1,13 +1,21 @@
 backendforgames.com {
 
-  
-  @adminer-raw path /database/adminer
-  @adminer-path path /database/adminer/*
-  
-  route {
-    redir @adminer-raw /database/adminer/ permanent
+  # — redirect bare `/database/adminer` to the trailing-slash version —
+  @adminer_no_slash {
+    path /database/adminer
+  }
+  handle @adminer_no_slash {
+    # 308 = “permanent with POST-safety”
+    redir /database/adminer/ 308
+  }
+
+  # — strip the prefix and proxy everything under /database/adminer/ —
+  @adminer {
+    path /database/adminer/*
+  }
+  handle @adminer {
     uri strip_prefix /database/adminer
-    reverse_proxy @adminer-path adminer:8080
+    reverse_proxy adminer:8080
   }
 
   handle /api/* {
@@ -17,5 +25,4 @@ backendforgames.com {
   handle {
     reverse_proxy frontend:80
   }
-
 }

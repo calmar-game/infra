@@ -51,6 +51,8 @@ services:
     image: adminer:latest
     container_name: adminer
     restart: always
+    expose:
+      - "8080"
     depends_on:
       - postgres
     networks:
