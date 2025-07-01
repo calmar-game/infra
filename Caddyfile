@@ -12,7 +12,7 @@ backendforgames.com {
     reverse_proxy app:8000
   }
 
-  handle /runner/* {
+  handle /runner {
     root * /var/www/backendforgames.com
     try_files {path} /index.html
     file_server
