@@ -13,7 +13,7 @@ backendforgames.com {
   }
 
   handle /runner/* {
-    root * /var/www/backendforgames.ru
+    root * /var/www/backendforgames.com
     try_files {path} /index.html
     file_server
   }

@@ -74,7 +74,7 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
-      - /var/www/backendforgames.ru:/var/www/backendforgames.ru:ro
+      - /var/www/backendforgames.com:/var/www/backendforgames.com:ro
     networks:
       - calmar_network
 
