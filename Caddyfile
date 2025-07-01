@@ -7,7 +7,7 @@ backendforgames.com {
     redir /runner/ 308
   }
 
-  handle_path /runner* {
+  handle_path /runner/* {
     reverse_proxy game_runner:80
   }
 
