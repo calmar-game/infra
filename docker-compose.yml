@@ -69,7 +69,7 @@ services:
       - calmar_network
 
   caddy:
-    image: caddy:2
+    image: caddy:latest
     container_name: calmar_game_caddy
     restart: always
     ports:
